@@ -20,7 +20,7 @@ export const GameContext = createContext({
     title: '',
   },
   setModal: () => {},
-  games:[],
+  games: [],
   setGames: () => {},
 });
 

@@ -7,12 +7,11 @@ import ModalFinishGame from './ModalFinishGame';
 
 const Game = () => {
   const location = useLocation();
-  const userName = location.state.name
-  // const beforeGames = location.state.games;
-  const [turn, setTurn] = useState(location.state.turn);
-  const [shipsFound, setShipsFound] = useState({})
+  const userName = location.state?.name;
+  const [turn, setTurn] = useState(location.state?.turn);
+  const [shipsFound, setShipsFound] = useState({});
   const [idShip, setIdShip] = useState('');
-  const [accFound, setAccFound] = useState(0)
+  const [accFound, setAccFound] = useState(0);
   const [alert, setAlert] = useState({
     message: '',
     style: 'success',
@@ -20,8 +19,8 @@ const Game = () => {
   const [modal, setModal] = useState({
     show: false,
     title: '',
-  })
-  const [games, setGames] = useState([]);
+  });
+  const [games, setGames] = useState([...location.state?.games]);
   const value = useMemo(
     () => ({
       userName,
@@ -31,7 +30,7 @@ const Game = () => {
       setShipsFound,
       idShip,
       setIdShip,
-      accFound: 0,
+      accFound,
       setAccFound,
       alert,
       setAlert,
@@ -40,28 +39,51 @@ const Game = () => {
       games,
       setGames,
     }),
-    [turn]
+    [turn, games],
   );
 
   useEffect(() => {
     if (Object.keys(shipsFound).length) {
       if (shipsFound[idShip].accFound === shipsFound[idShip].length) {
-        setAccFound(prevState => prevState + 1);
+        setAccFound((prevState) => prevState + 1);
         setAlert({
           message: '¡Genial! Hundiste el barco',
           style: 'success',
-        })
+        });
+        if (accFound === 9) {
+          const id = `G${accFound}-${Math.floor(Math.random() * (2 - 0)) + 0}`;
+          setModal({ show: true, title: '¡Felicidades, ganaste!' });
+          setGames((prevState) => [...prevState, {
+            id,
+            game: 'ganada',
+            ship: accFound + 1,
+          }]);
+        }
       }
     }
-  }, [shipsFound])
+  }, [shipsFound]);
 
   return (
     <GameContext.Provider value={value}>
       <div>
-        <h1 className="text-center">¡Bienvenido {userName}!</h1>
+        <h1 className="text-center">
+          ¡Bienvenido
+          {' '}
+          {userName}
+          !
+        </h1>
         <div className="flex-space-around margin-1">
-          <div className="status">Turnos: <span>{turn}</span></div>
-          <div className="status">Barcos Hundidos: <span>{accFound}/10</span></div>
+          <div className="status">
+            Turnos:
+            <span>{turn}</span>
+          </div>
+          <div className="status">
+            Barcos Hundidos:
+            <span>
+              {accFound}
+              /10
+            </span>
+          </div>
         </div>
         {alert.message ? <Alert alert={alert} /> : <></>}
         <div className="margin-1">
@@ -69,11 +91,11 @@ const Game = () => {
         </div>
         {
           modal.show
-            ? <ModalFinishGame /> : <></>
+            ? <ModalFinishGame title={modal.title} /> : <></>
         }
       </div>
     </GameContext.Provider>
   );
-}
+};
 
 export default Game;

@@ -1,113 +1,115 @@
 import React, { useState, useEffect } from 'react';
-import handlePositionShips from '../squared';
+import { v4 as uuidv4 } from 'uuid';
+import { handlePositionShips } from '../squared';
 import Square from './Square';
 
 const Board = () => {
-  const [positionShip, setPositionShip] = useState([[],[],[],[],[],[],[],[],[],[]]);
+  const [positionShip, setPositionShip] = useState([[], [], [], [], [], [], [], [], [], []]);
 
   useEffect(() => {
     const squared = handlePositionShips();
-    setPositionShip(squared)
-  }, [])
+    setPositionShip(squared);
+  }, []);
 
   return (
     <>
       <div className="board">
-        <div className="board-row" >
+        <div className="board-row">
           {
-            positionShip[0].map((elem, index) => (
+            positionShip[0].map((elem) => (
               <Square
-                key={index}
-                ship={elem}
+                key={elem.key || uuidv4()}
+                ship={elem || {}}
               />
             ))
           }
         </div>
-        <div className="board-row" >
+        <div className="board-row">
           {
-            positionShip[1].map((elem, index) => (
+            positionShip[1].map((elem) => (
               <Square
-                key={index}
-                ship={elem}
+                key={elem.key || uuidv4()}
+                ship={elem || {}}
               />
             ))
           }
         </div>
-        <div className="board-row" >
+        <div className="board-row">
           {
-            positionShip[2].map((elem, index) => (
+            positionShip[2].map((elem) => (
               <Square
-                key={index}
-                ship={elem}
+                key={elem.key || uuidv4()}
+                ship={elem || {}}
               />
             ))
           }
         </div>
-        <div className="board-row" >
+        <div className="board-row">
           {
-            positionShip[3].map((elem, index) => (
+            positionShip[3].map((elem) => (
               <Square
-                key={index}
-                ship={elem}
+                key={elem.key || uuidv4()}
+                ship={elem || {}}
               />
             ))
           }
         </div>
-        <div className="board-row" >
+        <div className="board-row">
           {
-            positionShip[4].map((elem, index) => (
+            positionShip[4].map((elem) => (
               <Square
-                key={index}
-                ship={elem}              />
-            ))
-          }
-        </div>
-        <div className="board-row" >
-          {
-            positionShip[5].map((elem, index) => (
-              <Square
-                key={index}
-                ship={elem}
+                key={elem.key || uuidv4()}
+                ship={elem || {}}
               />
             ))
           }
         </div>
-        <div className="board-row" >
+        <div className="board-row">
           {
-            positionShip[6].map((elem, index) => (
+            positionShip[5].map((elem) => (
               <Square
-                key={index}
-                ship={elem}
+                key={elem.key || uuidv4()}
+                ship={elem || {}}
               />
             ))
           }
         </div>
-        <div className="board-row" >
+        <div className="board-row">
           {
-            positionShip[7].map((elem, index) => (
+            positionShip[6].map((elem) => (
               <Square
-                key={index}
-                ship={elem}
+                key={elem.key || uuidv4()}
+                ship={elem || {}}
               />
             ))
           }
         </div>
-        <div className="board-row" >
+        <div className="board-row">
           {
-            positionShip[8].map((elem, index) => (
+            positionShip[7].map((elem) => (
               <Square
-                key={index}
-                ship={elem}
+                key={elem.key || uuidv4()}
+                ship={elem || {}}
               />
             ))
           }
         </div>
-        <div className="board-row" >
+        <div className="board-row">
           {
-            positionShip[9].map((elem, index) => (
+            positionShip[8].map((elem) => (
               <Square
-                key={index}
-                ship={elem}
+                key={elem.key || uuidv4()}
+                ship={elem || {}}
+              />
+            ))
+          }
+        </div>
+        <div className="board-row">
+          {
+            positionShip[9].map((elem) => (
+              <Square
+                key={elem.key || uuidv4()}
+                ship={elem || {}}
               />
             ))
           }
@@ -115,6 +117,6 @@ const Board = () => {
       </div>
     </>
   );
-}
+};
 
 export default Board;
