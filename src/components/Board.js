@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import handlePositionShips from '../squared';
+import { handlePositionShips } from '../squared';
 import Square from './Square';
 
 const Board = () => {

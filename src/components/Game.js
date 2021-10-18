@@ -1,15 +1,16 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
+import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
 import { GameContext } from './GameProvider';
 import Board from './Board';
-import Alert from './Alert';
+import AlertMessage from './Alert';
 import ModalFinishGame from './ModalFinishGame';
 
 const Game = () => {
   const location = useLocation();
-  const userName = location.state.name
-  // const beforeGames = location.state.games;
-  const [turn, setTurn] = useState(location.state.turn);
+  const userName = location.state?.name
+  const [turn, setTurn] = useState(location.state?.turn);
   const [shipsFound, setShipsFound] = useState({})
   const [idShip, setIdShip] = useState('');
   const [accFound, setAccFound] = useState(0)
@@ -21,7 +22,7 @@ const Game = () => {
     show: false,
     title: '',
   })
-  const [games, setGames] = useState([]);
+  const [games, setGames] = useState([...location.state?.games || []]);
   const value = useMemo(
     () => ({
       userName,
@@ -31,7 +32,7 @@ const Game = () => {
       setShipsFound,
       idShip,
       setIdShip,
-      accFound: 0,
+      accFound,
       setAccFound,
       alert,
       setAlert,
@@ -63,7 +64,14 @@ const Game = () => {
           <div className="status">Turnos: <span>{turn}</span></div>
           <div className="status">Barcos Hundidos: <span>{accFound}/10</span></div>
         </div>
-        {alert.message ? <Alert alert={alert} /> : <></>}
+        {alert.message ?
+          <AlertMessage  alert={alert} /> :
+          <Stack sx={{ flexDirection: 'row', justifyContent: 'center' }}>
+            <Alert icon={false} severity="success">
+              Empieza presionando un boton 
+            </Alert>
+          </Stack>
+        }
         <div className="margin-1">
           <Board />
         </div>

@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 import { useGame } from './GameProvider';
 
@@ -59,7 +60,8 @@ const Square = ({ ship }) => {
           ship: accFound
         }])
       }
-      if (accFound === 10) {
+      console.log(accFound)
+      if (accFound === 9) {
         setModal({show: true, title: '¡Felicidades, ganaste!'})
         setGames(prevState => [ ...prevState, {
           game: 'ganada',

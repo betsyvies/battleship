@@ -1,12 +1,11 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import { useGame } from './GameProvider';
 
-const ModalFinishGame = ({ title }) => {
+const ModalFinishGame = () => {
   const history = useHistory();
-  const { games, userName, setModal } = useGame();
+  const { games, userName, setModal, modal } = useGame();
 
   const handleRestart = (e) => {
     e.preventDefault();
@@ -28,7 +27,7 @@ const ModalFinishGame = ({ title }) => {
   return (
     <div className="modal">
       <div className="modal-content">
-        <h2>{title}</h2>
+        <h2>{modal.title}</h2>
         <div className="flex-center">
           <Button
             variant="contained"
@@ -50,10 +49,6 @@ const ModalFinishGame = ({ title }) => {
       </div>
     </div>
   );
-};
-
-ModalFinishGame.propTypes = {
-  title: PropTypes.string.isRequired,
 };
 
 export default ModalFinishGame;
