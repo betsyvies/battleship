@@ -1,37 +1,38 @@
 import React from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
 import Button from '@mui/material/Button';
-import TableGames from './TableGames'
+import TableGames from './TableGames';
 
 const ListFinishedGames = () => {
   const location = useLocation();
   const history = useHistory();
 
-  const userName = location.state.userName;
-  const games = location.state.games;
-  console.log(games);
+  const userName = location.state?.userName;
+  const games = location.state?.games;
+  const gamesWon = location.state.games.length;
+
   const handleRestart = (e) => {
     e.preventDefault();
     history.push({
-      pathname: '/', 
+      pathname: '/',
       state: {
-      userName,
-      games,
-      }
-    })
-  }
+        userName,
+        games,
+      },
+    });
+  };
   return (
     <>
       <h1 className="text-center">Lista de partidas jugadas</h1>
       <div className="flex-space-around">
-        <div className="status">
-          Jugador: 
-          <span>{userName}</span>
-        </div>
-        <div className="status">
-          Partidas: 
-          <span>8</span>
-        </div>
+        <span className="status flex-center">
+          Jugador:
+          {userName}
+        </span>
+        <span className="status flex-center">
+          Partidas:
+          {gamesWon}
+        </span>
         <Button
           variant="contained"
           onClick={handleRestart}
@@ -42,6 +43,6 @@ const ListFinishedGames = () => {
       <TableGames games={games} />
     </>
   );
-}
+};
 
 export default ListFinishedGames;
